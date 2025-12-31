@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Igniel Software Technology</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* --- Navbar Container --- */
+        .navbar {
+            width: 100%;
+            background: linear-gradient(135deg, #0A2A43 0%, #134163 100%);
+            padding: 0 60px;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        /* --- Logo Section --- */
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container img {
+            height: 55px;
+            width: auto;
+            filter: drop-shadow(0 2px 8px rgba(217, 183, 136, 0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container img:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- Navigation Links --- */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 45px;
+            align-items: center;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            padding: 8px 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* Animated underline effect */
+        .nav-menu li a::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, transparent, #D9B788, transparent);
+            transition: width 0.4s ease;
+            border-radius: 2px;
+        }
+
+        .nav-menu li a:hover::before {
+            width: 100%;
+        }
+
+        .nav-menu li a:hover {
+            color: #D9B788;
+        }
+
+        /* Active page styling */
+        .nav-menu li a.active {
+            color: #D9B788;
+            font-weight: 600;
+        }
+
+        .nav-menu li a.active::before {
+            width: 100%;
+            background: linear-gradient(90deg, transparent, #D9B788, transparent);
+        }
+
+        /* Special styling for Internship */
+        .nav-menu li.special a {
+            background: linear-gradient(135deg, #D9B788 0%, #C5A373 100%);
+            color: #0A2A43;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(217, 183, 136, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu li.special a::before {
+            display: none;
+        }
+
+        .nav-menu li.special a:hover {
+            background: linear-gradient(135deg, #EDD6B3 0%, #D9B788 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(217, 183, 136, 0.6);
+            color: #0A2A43;
+        }
+
+        /* --- Mobile Menu Toggle --- */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(90deg, #D9B788, #EDD6B3);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(9px, 9px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* --- Mobile Responsive --- */
+        @media (max-width: 968px) {
+            .navbar {
+                padding: 0 30px;
+            }
+
+            .navbar-content {
+                height: 70px;
+            }
+
+            .logo-container img {
+                height: 45px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 320px;
+                height: calc(100vh - 70px);
+                background: linear-gradient(180deg, #0A2A43 0%, #134163 100%);
+                flex-direction: column;
+                padding: 50px 35px;
+                gap: 0;
+                align-items: flex-start;
+                transition: right 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+                overflow-y: auto;
+                border-left: 4px solid #D9B788;
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .nav-menu li {
+                width: 100%;
+                padding: 18px 0;
+                border-bottom: 1px solid rgba(217, 183, 136, 0.2);
+            }
+
+            .nav-menu li:last-child {
+                border-bottom: none;
+                padding-top: 25px;
+            }
+
+            .nav-menu li a {
+                font-size: 18px;
+                display: block;
+            }
+
+            .nav-menu li a::before {
+                bottom: -5px;
+            }
+
+            .nav-menu li.special a {
+                width: 100%;
+                text-align: center;
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .logo-container img {
+                height: 40px;
+            }
+
+            .nav-menu {
+                width: 280px;
+                padding: 40px 25px;
+            }
+        }
+
+        /* --- Sample Content --- */
+        .content {
+            margin-top: 120px;
+            padding: 40px;
+            color: #333;
+        }
+
+        .content h2 {
+            color: #0A2A43;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            line-height: 1.8;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <!-- Logo -->
+            <div class="logo-container">
+                <img src="./image/logo.png" alt="Igniel Software Technology">
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <div class="menu-toggle" onclick="toggleMenu(this)">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <!-- Navigation Menu -->
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li class="special"><a href="#internship">Internship</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <script>
+        function toggleMenu(toggle) {
+            const menu = document.getElementById("navMenu");
+            toggle.classList.toggle("active");
+            menu.classList.toggle("active");
+        }
+
+        // Set active link based on current page or section
+        function setActiveLink() {
+            const navLinks = document.querySelectorAll('.nav-menu a:not(.special a)');
+            const currentPath = window.location.hash || '#home';
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Call on page load
+        setActiveLink();
+
+        // Update active link on hash change
+        window.addEventListener('hashchange', setActiveLink);
+
+        // Add click event to update active state
+        document.querySelectorAll('.nav-menu a:not(.special a)').forEach(link => {
+            link.addEventListener('click', function(e) {
+                document.querySelectorAll('.nav-menu a').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Close mobile menu
+                if (window.innerWidth <= 968) {
+                    const menu = document.getElementById("navMenu");
+                    const menuToggle = document.querySelector('.menu-toggle');
+                    menu.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                }
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navbar = document.querySelector('.navbar');
+            const menu = document.getElementById("navMenu");
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!navbar.contains(event.target) && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+                menuToggle.classList.remove('active');
+            }
+        });
+
+        // Handle scroll effects
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 50) {
+                navbar.style.padding = '0 60px';
+                navbar.style.boxShadow = '0 5px 40px rgba(0, 0, 0, 0.4)';
+            } else {
+                navbar.style.padding = '0 60px';
+                navbar.style.boxShadow = '0 5px 30px rgba(0, 0, 0, 0.3)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+
+    <!-- Sample Content -->
+    <div class="content">
+        <h2>Welcome to Igniel Software Technology</h2>
+        <p>Your innovative software solutions partner. We deliver cutting-edge technology solutions that drive business growth and digital transformation.</p>
+        <p style="margin-top: 15px;">Scroll down to see more content and test the navbar functionality...</p>
+    </div>
+
+</body>
+</html>
